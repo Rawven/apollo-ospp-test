@@ -1,8 +1,8 @@
-package com.ctrip.framework.apollo.metrics.collector;
+package www.raven.ospp.metrics.collector;
 
-import com.ctrip.framework.apollo.metrics.MetricsEvent;
-import com.ctrip.framework.apollo.metrics.model.MetricsSample;
 import java.util.List;
+import www.raven.ospp.metrics.MetricsEvent;
+import www.raven.ospp.metrics.model.MetricsSample;
 
 public interface MetricsCollector {
 

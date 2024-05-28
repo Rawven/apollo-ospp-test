@@ -1,7 +1,7 @@
-package com.ctrip.framework.apollo.metrics.reporter;
+package www.raven.ospp.metrics.reporter;
 
-import com.ctrip.framework.apollo.metrics.model.CounterMetricsSample;
-import com.ctrip.framework.apollo.metrics.model.GaugeMetricsSample;
+import www.raven.ospp.metrics.model.CounterMetricsSample;
+import www.raven.ospp.metrics.model.GaugeMetricsSample;
 
 public interface MetricsReporter {
 

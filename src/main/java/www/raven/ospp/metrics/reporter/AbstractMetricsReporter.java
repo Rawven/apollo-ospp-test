@@ -1,27 +1,35 @@
-package com.ctrip.framework.apollo.metrics.reporter;
+package www.raven.ospp.metrics.reporter;
 
-import com.ctrip.framework.apollo.build.ApolloInjector;
-import com.ctrip.framework.apollo.core.utils.ApolloThreadFactory;
-import com.ctrip.framework.apollo.metrics.collector.MetricsCollector;
-import com.ctrip.framework.apollo.metrics.collector.MetricsCollectorManager;
-import com.ctrip.framework.apollo.metrics.model.CounterMetricsSample;
-import com.ctrip.framework.apollo.metrics.model.GaugeMetricsSample;
-import com.ctrip.framework.apollo.metrics.model.MetricsSample;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import www.raven.ospp.metrics.collector.MetricsCollector;
+import www.raven.ospp.metrics.collector.MetricsCollectorManager;
+import www.raven.ospp.metrics.model.CounterMetricsSample;
+import www.raven.ospp.metrics.model.GaugeMetricsSample;
+import www.raven.ospp.metrics.model.MetricsSample;
+import www.raven.ospp.metrics.util.UtilInjector;
 
+import static www.raven.ospp.metrics.util.MeterType.COUNTER;
+import static www.raven.ospp.metrics.util.MeterType.GAUGE;
+
+@SuppressWarnings("all")
 public abstract class AbstractMetricsReporter implements MetricsReporter {
 
+    private static final Logger log = LoggerFactory.getLogger(AbstractMetricsReporter.class);
     protected String url;
     private final static ScheduledExecutorService m_executorService;
-    private final MetricsCollectorManager metricsCollectorManager = ApolloInjector.getInstance(MetricsCollectorManager.class);
+    private final MetricsCollectorManager metricsCollectorManager = UtilInjector.getInstance(MetricsCollectorManager.class);
 
     public AbstractMetricsReporter(String url) {
         //....
         this.url = url;
+        init();
     }
+
     @Override
     public void init() {
         //...
@@ -32,15 +40,16 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     protected abstract void doInit();
 
     static {
-        m_executorService = Executors.newScheduledThreadPool(1,
-            ApolloThreadFactory.create("RemoteConfigRepository", true));
+        m_executorService = Executors.newScheduledThreadPool(1);
     }
 
     private void initScheduleMetricsCollectSync() {
+        log.info("Start to schedule metrics collect sync job");
         m_executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 try {
+                    log.info("Start to update metrics data job");
                     updateMetricsData();
                 } catch (Throwable ex) {
                     //ignore
@@ -63,24 +72,20 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     }
 
     private void registerSample(MetricsSample sample) {
-        switch (sample.getType()) {
-            case GAUGE:
-                registerGaugeSample((GaugeMetricsSample) sample);
-                break;
-            case COUNTER:
-                registerCounterSample((CounterMetricsSample) sample);
-                break;
-            default:
+        if (sample.getType() == GAUGE) {
+            registerGaugeSample((GaugeMetricsSample) sample);
+        } else if (sample.getType() == COUNTER) {
+            registerCounterSample((CounterMetricsSample) sample);
         }
     }
 
 
     protected long getPeriod() {
-        return 0;
+        return 5000;
     }
 
     protected long getInitialDelay() {
-        return 0;
+        return 5000;
     }
 
 }

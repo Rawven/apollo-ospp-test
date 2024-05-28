@@ -1,16 +1,10 @@
-package com.ctrip.framework.apollo.metrics.reporter.internal;
+package www.raven.ospp.metrics.reporter.internal;
 
-import com.ctrip.framework.apollo.core.utils.ApolloThreadFactory;
-import com.ctrip.framework.apollo.metrics.model.CounterMetricsSample;
-import com.ctrip.framework.apollo.metrics.model.GaugeMetricsSample;
-import com.ctrip.framework.apollo.metrics.reporter.AbstractMetricsReporter;
-import com.ctrip.framework.apollo.metrics.reporter.MetricsReporter;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.exporter.PushGateway;
 import io.prometheus.client.exporter.common.TextFormat;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.concurrent.Executors;
@@ -18,28 +12,34 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import www.raven.ospp.metrics.model.CounterMetricsSample;
+import www.raven.ospp.metrics.model.GaugeMetricsSample;
+import www.raven.ospp.metrics.reporter.AbstractMetricsReporter;
+import www.raven.ospp.metrics.reporter.MetricsReporter;
 
+@SuppressWarnings("all")
 public class PrometheusMetricReporter extends AbstractMetricsReporter implements MetricsReporter {
     private static final Logger logger = LoggerFactory.getLogger(
         PrometheusMetricReporter.class);
     private final static ScheduledExecutorService m_executorService;
     private final CollectorRegistry registry;
-    private final PushGateway pushGateway;
+    private PushGateway pushGateway;
 
     static {
-        m_executorService = Executors.newScheduledThreadPool(1,
-            ApolloThreadFactory.create("RemoteConfigRepository", true));
+        m_executorService = Executors.newScheduledThreadPool(1);
     }
 
     public PrometheusMetricReporter(String url) {
         super(url);
         this.registry = new CollectorRegistry();
-        this.pushGateway = new PushGateway(url);
     }
 
     @Override
     public void doInit() {
-        openMetricsPort();
+        if(url != null && !url.isEmpty()) {
+            pushGateway = new PushGateway(url);
+            initSchdulePushJob();
+        }
     }
 
     protected void initSchdulePushJob() {

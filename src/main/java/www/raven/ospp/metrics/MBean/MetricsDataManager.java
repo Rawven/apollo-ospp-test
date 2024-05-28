@@ -1,17 +1,19 @@
-package com.ctrip.framework.apollo.metrics.MBean;
+package www.raven.ospp.metrics.MBean;
 
-import com.ctrip.framework.apollo.core.utils.ClassLoaderUtil;
-import com.ctrip.framework.apollo.metrics.util.JMXUtil;
-import com.ctrip.framework.apollo.util.ConfigUtil;
+import www.raven.ospp.metrics.util.ClassLoaderUtil;
+import www.raven.ospp.metrics.util.JMXUtil;
+import www.raven.ospp.metrics.util.UtilInjector;
 
-public class MetricsDataManager implements MetricsManagerMBean{
-    private NamespaceMetrics namespaceMetrics = new NamespaceMetrics();
-    private RepositoryChangeMetrics repositoryChangeMetrics = new RepositoryChangeMetrics();
-
+public class MetricsDataManager implements MetricsDataManagerMBean{
+   private TestSampleMBean testSample = UtilInjector.getInstance(TestSampleMBean.class);;
     public MetricsDataManager() {
         if(!ClassLoaderUtil.isClassPresent("org.springframework.boot.actuate")) {
             JMXUtil.register("com.ctrip.framework.apollo:type=Metric", this);
         }
     }
-    //method
+
+    @Override
+    public String getTestSampleMBean() {
+        return testSample.toString();
+    }
 }

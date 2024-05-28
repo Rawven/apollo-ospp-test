@@ -1,18 +1,22 @@
-package com.ctrip.framework.apollo.metrics.reporter.internal;
+package www.raven.ospp.metrics.reporter.internal;
 
-import com.ctrip.framework.apollo.core.utils.ClassLoaderUtil;
-import com.ctrip.framework.apollo.metrics.reporter.MetricsReporter;
-import com.ctrip.framework.apollo.metrics.reporter.MetricsReporterManager;
-import com.ctrip.framework.apollo.spring.metrics.SpringMetricsReporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import www.raven.ospp.metrics.reporter.MetricsReporter;
+import www.raven.ospp.metrics.reporter.MetricsReporterManager;
+import www.raven.ospp.metrics.util.ClassLoaderUtil;
 
 public class DefaultMetricsReporterManager implements MetricsReporterManager {
+    private static final Logger log = LoggerFactory.getLogger(DefaultMetricsReporterManager.class);
     private MetricsReporter reporter;
 
     public DefaultMetricsReporterManager() {
-        if (ClassLoaderUtil.isClassPresent("org.springframework.boot.actuate")) {
-            reporter =  new SpringMetricsReporter("no need");
-        } else if(ClassLoaderUtil.isClassPresent("io.prometheus")) {
-            reporter = new PrometheusMetricReporter("http://domain:9090");
+        log.info("DefaultMetricsReporterManager init");
+         if(ClassLoaderUtil.isClassPresent("io.prometheus.client.CollectorRegistry")) {
+             log.info("PrometheusMetricReporter init");
+            reporter = new PrometheusMetricReporter("");
+        }else {
+             reporter = new NopMetricReporter("");
         }
     }
     @Override

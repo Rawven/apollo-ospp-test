@@ -1,10 +1,10 @@
-package com.ctrip.framework.apollo.metrics.model;
+package www.raven.ospp.metrics.model;
 
-import com.ctrip.framework.apollo.metrics.util.MeterType;
+import www.raven.ospp.metrics.util.MeterType;
 
 public class MetricsSample {
     private String name;
-    private   MeterType type;
+    private MeterType type;
 
     public String getName() {
         return name;

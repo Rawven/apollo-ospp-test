@@ -1,11 +1,21 @@
-package com.ctrip.framework.apollo.metrics.model;
+package www.raven.ospp.metrics.model;
 
 import java.util.function.ToDoubleFunction;
+
+import static www.raven.ospp.metrics.util.MeterType.GAUGE;
 
 public class GaugeMetricsSample<T> extends MetricsSample{
     private T value;
 
     private ToDoubleFunction<T> apply;
+
+    public GaugeMetricsSample(String name, T value, ToDoubleFunction<T> apply) {
+        this.value = value;
+        this.apply = apply;
+        this.setType(GAUGE);
+    }
+    public GaugeMetricsSample() {
+    }
 
     public T getValue() {
         return value;

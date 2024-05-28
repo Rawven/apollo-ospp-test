@@ -1,10 +1,14 @@
-package com.ctrip.framework.apollo.metrics.model;
+package www.raven.ospp.metrics.model;
+
+import www.raven.ospp.metrics.util.MeterType;
 
 public class CounterMetricsSample extends MetricsSample{
     private Double value;
 
-    public CounterMetricsSample(long num) {
-        this.value = (double) num;
+    public CounterMetricsSample(String name,long num) {
+        setName(name);
+        setValue((double) num);
+        setType(MeterType.COUNTER);
     }
 
     public Double getValue() {

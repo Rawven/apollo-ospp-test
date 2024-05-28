@@ -1,4 +1,4 @@
-package com.ctrip.framework.apollo.metrics;
+package www.raven.ospp.metrics;
 
 public class MetricsEvent<T> {
     private String tag;
