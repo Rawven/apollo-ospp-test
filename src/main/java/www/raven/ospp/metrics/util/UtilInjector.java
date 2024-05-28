@@ -5,8 +5,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import www.raven.ospp.metrics.MBean.MetricsDataManager;
-import www.raven.ospp.metrics.MBean.MetricsDataManagerMBean;
 import www.raven.ospp.metrics.MBean.TestSample;
 import www.raven.ospp.metrics.MBean.TestSampleMBean;
 import www.raven.ospp.metrics.collector.DefaultMetricsCollectorManager;
@@ -37,7 +35,7 @@ public class UtilInjector {
              bind(MetricsCollectorManager.class).to(DefaultMetricsCollectorManager.class).in(Singleton.class);
              bind(MetricsReporterManager.class).to(DefaultMetricsReporterManager.class).in(Singleton.class);
              bind(TestSampleMBean.class).to(TestSample.class).in(Singleton.class);
-             bind(MetricsDataManagerMBean.class).to(MetricsDataManager.class).in(Singleton.class);
+
         }
     }
 }

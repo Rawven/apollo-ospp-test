@@ -1,7 +1,6 @@
 package www.raven.ospp.metrics;
 
 import lombok.extern.slf4j.Slf4j;
-import www.raven.ospp.metrics.MBean.MetricsDataManagerMBean;
 import www.raven.ospp.metrics.collector.MetricsCollector;
 import www.raven.ospp.metrics.collector.MetricsCollectorManager;
 import www.raven.ospp.metrics.reporter.MetricsReporterManager;
@@ -11,13 +10,10 @@ public abstract class MetricsCollectHelper {
 
     private static MetricsCollectorManager collectorManager;
     private static MetricsReporterManager reporterManager;
-    private static MetricsDataManagerMBean metricsDataManager;
     static {
         collectorManager = UtilInjector.getInstance(MetricsCollectorManager.class);
         reporterManager = UtilInjector.getInstance(MetricsReporterManager.class);
-        metricsDataManager = UtilInjector.getInstance(MetricsDataManagerMBean.class);
     }
-
 
     public static <T>void pushMetricsObject(T object, String key) {
         log.info("pushMetricsObject: object={}, key={}", object, key);
@@ -34,9 +30,6 @@ public abstract class MetricsCollectHelper {
         return reporterManager.getMetricsReporter().response();
     }
 
-    public static MetricsDataManagerMBean getMetricsDataManager() {
-        return metricsDataManager;
-    }
 
 
 }

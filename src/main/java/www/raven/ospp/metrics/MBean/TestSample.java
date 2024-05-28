@@ -1,7 +1,8 @@
 package www.raven.ospp.metrics.MBean;
 
-public class TestSample implements TestSampleMBean{
+public class TestSample extends AbstractMBean implements TestSampleMBean{
     private int num;
+    private long time;
     @Override
     public int getNum() {
         return num;
@@ -13,6 +14,16 @@ public class TestSample implements TestSampleMBean{
     }
 
     @Override
+    public long getTime() {
+        return time;
+    }
+
+    @Override
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    @Override
     public void test() {
         System.out.println(num);
     }
@@ -21,6 +32,7 @@ public class TestSample implements TestSampleMBean{
     public String toString() {
         return "TestSample{" +
                 "num=" + num +
+                ", time=" + time +
                 '}';
     }
 }

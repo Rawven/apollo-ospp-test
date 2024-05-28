@@ -15,6 +15,12 @@ public class TestController {
         return "test";
     }
 
+    @PostMapping("/test2")
+    public String test2() {
+        MetricsCollectHelper.pushMetricsObject(System.currentTimeMillis(), "test2");
+        return "test2";
+    }
+
     @PostMapping("/response")
     public String response() {
         return MetricsCollectHelper.getMetricsExportData();
