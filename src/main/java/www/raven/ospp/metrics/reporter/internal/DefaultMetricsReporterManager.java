@@ -16,6 +16,7 @@ public class DefaultMetricsReporterManager implements MetricsReporterManager {
              log.info("PrometheusMetricReporter init");
             reporter = new PrometheusMetricReporter("");
         }else {
+             log.info("NopMetricReporter init");
              reporter = new NopMetricReporter("");
         }
     }

@@ -13,8 +13,8 @@ import www.raven.ospp.metrics.reporter.MetricsReporterManager;
 import www.raven.ospp.metrics.reporter.internal.DefaultMetricsReporterManager;
 
 @Slf4j
-public class UtilInjector {
-    private static Injector injector;
+public class SimpleInjector {
+    private static final Injector injector;
     static {
         injector = Guice.createInjector(new DefaultModule());
     }

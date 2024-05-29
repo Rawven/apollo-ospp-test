@@ -11,7 +11,7 @@ import www.raven.ospp.metrics.collector.MetricsCollectorManager;
 import www.raven.ospp.metrics.model.CounterMetricsSample;
 import www.raven.ospp.metrics.model.GaugeMetricsSample;
 import www.raven.ospp.metrics.model.MetricsSample;
-import www.raven.ospp.metrics.util.UtilInjector;
+import www.raven.ospp.metrics.util.SimpleInjector;
 
 import static www.raven.ospp.metrics.util.MeterType.COUNTER;
 import static www.raven.ospp.metrics.util.MeterType.GAUGE;
@@ -22,7 +22,7 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     private static final Logger log = LoggerFactory.getLogger(AbstractMetricsReporter.class);
     protected String url;
     private final static ScheduledExecutorService m_executorService;
-    private final MetricsCollectorManager metricsCollectorManager = UtilInjector.getInstance(MetricsCollectorManager.class);
+    private final MetricsCollectorManager metricsCollectorManager = SimpleInjector.getInstance(MetricsCollectorManager.class);
 
     public AbstractMetricsReporter(String url) {
         //....

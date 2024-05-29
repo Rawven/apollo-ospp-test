@@ -3,6 +3,7 @@ package www.raven.ospp.metrics.MBean;
 public class TestSample extends AbstractMBean implements TestSampleMBean{
     private int num;
     private long time;
+
     @Override
     public int getNum() {
         return num;

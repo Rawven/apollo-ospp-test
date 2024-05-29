@@ -78,7 +78,7 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
     public String response() {
         StringWriter writer = new StringWriter();
         try {
-            TextFormat.write004(writer, registry.metricFamilySamples());
+            TextFormat.writeFormat(TextFormat.CONTENT_TYPE_OPENMETRICS_100,writer, registry.metricFamilySamples());
         } catch (IOException e) {
             logger.error("Write metrics to Prometheus format failed", e);
         }

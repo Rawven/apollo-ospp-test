@@ -10,15 +10,17 @@ import www.raven.ospp.metrics.MetricsEvent;
 import www.raven.ospp.metrics.model.CounterMetricsSample;
 import www.raven.ospp.metrics.model.GaugeMetricsSample;
 import www.raven.ospp.metrics.model.MetricsSample;
-import www.raven.ospp.metrics.util.UtilInjector;
+
 @Slf4j
 public class TestCollector implements MetricsCollector {
+    public static final String NUM_NAME = "TestCounter";
+    public static final String TIME_NAME = "TestGauge";
     private TestSampleMBean testSampleMBean = new TestSample();
     private boolean isSamplesUpdated = false;
 
     @Override
     public boolean isSupport(String tag) {
-        return Objects.equals(tag, "test") || Objects.equals(tag, "test2");
+        return Objects.equals(tag, NUM_NAME) || Objects.equals(tag, TIME_NAME);
     }
 
     @Override
@@ -45,8 +47,8 @@ public class TestCollector implements MetricsCollector {
     @Override
     public List<MetricsSample> export() {
         List<MetricsSample> samples = new ArrayList<>();
-        samples.add(new CounterMetricsSample("test",testSampleMBean.getNum()));
-        samples.add(new GaugeMetricsSample<>("test2", testSampleMBean.getTime(), Double::valueOf));
+        samples.add(new CounterMetricsSample(NUM_NAME,testSampleMBean.getNum()));
+        samples.add(new GaugeMetricsSample<>(TIME_NAME, testSampleMBean.getTime(), Double::valueOf));
         return samples;
     }
 }
