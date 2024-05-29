@@ -8,8 +8,8 @@ import io.prometheus.client.exporter.PushGateway;
 import io.prometheus.client.exporter.common.TextFormat;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +27,7 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
     private final static ScheduledExecutorService m_executorService;
     private final CollectorRegistry registry;
     private PushGateway pushGateway;
-    private final Map<String, Collector.Describable> map = new ConcurrentHashMap<>();
+    private final Map<String, Collector.Describable> map = new HashMap<>();
     static {
         m_executorService = Executors.newScheduledThreadPool(1);
     }
