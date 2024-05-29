@@ -1,4 +1,4 @@
-package www.raven.ospp.metrics.collector;
+package www.raven.ospp.metrics.collector.internal;
 
 import java.util.List;
 

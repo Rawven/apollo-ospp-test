@@ -1,5 +1,7 @@
 package www.raven.ospp.metrics.MBean;
 
+import www.raven.ospp.metrics.MBean.internal.AbstractMBean;
+
 public class TestSample extends AbstractMBean implements TestSampleMBean{
     private int num;
     private long time;

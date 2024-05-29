@@ -1,4 +1,4 @@
-package www.raven.ospp.metrics.MBean;
+package www.raven.ospp.metrics.MBean.internal;
 
 import www.raven.ospp.metrics.util.JMXUtil;
 

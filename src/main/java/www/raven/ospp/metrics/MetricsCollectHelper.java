@@ -1,8 +1,8 @@
 package www.raven.ospp.metrics;
 
 import lombok.extern.slf4j.Slf4j;
-import www.raven.ospp.metrics.collector.MetricsCollector;
-import www.raven.ospp.metrics.collector.MetricsCollectorManager;
+import www.raven.ospp.metrics.collector.internal.MetricsCollector;
+import www.raven.ospp.metrics.collector.internal.MetricsCollectorManager;
 import www.raven.ospp.metrics.reporter.MetricsReporterManager;
 import www.raven.ospp.metrics.util.SimpleInjector;
 @Slf4j

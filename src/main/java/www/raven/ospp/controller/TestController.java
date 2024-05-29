@@ -13,12 +13,14 @@ public class TestController {
 
     @PostMapping("/test")
     public String test() {
-        MetricsCollectHelper.pushMetricsObject("test", TestCollector.NUM_NAME);
+        //触发Counter类型指标
+        MetricsCollectHelper.pushMetricsObject("num add", TestCollector.NUM_NAME);
         return "test";
     }
 
     @PostMapping("/test2")
     public String test2() {
+        //触发Gauge类型指标
         MetricsCollectHelper.pushMetricsObject(System.currentTimeMillis(), TestCollector.TIME_NAME);
         return "test2";
     }

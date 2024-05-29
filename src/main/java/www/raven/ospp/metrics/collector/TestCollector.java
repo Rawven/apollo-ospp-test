@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import www.raven.ospp.metrics.MBean.TestSample;
 import www.raven.ospp.metrics.MBean.TestSampleMBean;
 import www.raven.ospp.metrics.MetricsEvent;
+import www.raven.ospp.metrics.collector.internal.MetricsCollector;
 import www.raven.ospp.metrics.model.CounterMetricsSample;
 import www.raven.ospp.metrics.model.GaugeMetricsSample;
 import www.raven.ospp.metrics.model.MetricsSample;

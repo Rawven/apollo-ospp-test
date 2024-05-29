@@ -1,7 +1,8 @@
-package www.raven.ospp.metrics.collector;
+package www.raven.ospp.metrics.collector.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import www.raven.ospp.metrics.collector.TestCollector;
 
 public class DefaultMetricsCollectorManager implements MetricsCollectorManager {
 

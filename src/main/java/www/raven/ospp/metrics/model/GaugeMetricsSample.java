@@ -10,11 +10,10 @@ public class GaugeMetricsSample<T> extends MetricsSample{
     private ToDoubleFunction<T> apply;
 
     public GaugeMetricsSample(String name, T value, ToDoubleFunction<T> apply) {
-        this.value = value;
-        this.apply = apply;
-        this.setType(GAUGE);
-    }
-    public GaugeMetricsSample() {
+        setName(name);
+        setValue(value);
+        setApply(apply);
+        setType(GAUGE);
     }
 
     public T getValue() {
@@ -27,6 +26,10 @@ public class GaugeMetricsSample<T> extends MetricsSample{
 
     public ToDoubleFunction<T> getApply() {
         return this.apply;
+    }
+
+    public void setApply(ToDoubleFunction<T> apply) {
+        this.apply = apply;
     }
 
     public double getApplyValue() {

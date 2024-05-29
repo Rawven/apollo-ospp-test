@@ -5,10 +5,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import www.raven.ospp.metrics.MBean.TestSample;
-import www.raven.ospp.metrics.MBean.TestSampleMBean;
-import www.raven.ospp.metrics.collector.DefaultMetricsCollectorManager;
-import www.raven.ospp.metrics.collector.MetricsCollectorManager;
+import www.raven.ospp.metrics.collector.internal.DefaultMetricsCollectorManager;
+import www.raven.ospp.metrics.collector.internal.MetricsCollectorManager;
 import www.raven.ospp.metrics.reporter.MetricsReporterManager;
 import www.raven.ospp.metrics.reporter.internal.DefaultMetricsReporterManager;
 
