@@ -34,8 +34,6 @@ public class SimpleInjector {
         protected void configure() {
              bind(MetricsCollectorManager.class).to(DefaultMetricsCollectorManager.class).in(Singleton.class);
              bind(MetricsReporterManager.class).to(DefaultMetricsReporterManager.class).in(Singleton.class);
-             bind(TestSampleMBean.class).to(TestSample.class).in(Singleton.class);
-
         }
     }
 }

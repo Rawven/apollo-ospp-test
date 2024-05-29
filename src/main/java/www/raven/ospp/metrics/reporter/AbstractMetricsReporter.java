@@ -22,8 +22,7 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     private static final Logger log = LoggerFactory.getLogger(AbstractMetricsReporter.class);
     protected String url;
     private final static ScheduledExecutorService m_executorService;
-    private final MetricsCollectorManager metricsCollectorManager = SimpleInjector.getInstance(MetricsCollectorManager.class);
-
+    private List<MetricsCollector> collectors;
     public AbstractMetricsReporter(String url) {
         //....
         this.url = url;
@@ -34,7 +33,13 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     public void init() {
         //...
         doInit();
+        initCollectors();
         initScheduleMetricsCollectSync();
+    }
+
+    private void initCollectors() {
+         MetricsCollectorManager metricsCollectorManager = SimpleInjector.getInstance(MetricsCollectorManager.class);
+         collectors = metricsCollectorManager.getCollectors();
     }
 
     protected abstract void doInit();
@@ -59,7 +64,7 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     }
 
     private void updateMetricsData() {
-        for (MetricsCollector collector : metricsCollectorManager.getCollectors()) {
+        for (MetricsCollector collector : collectors) {
             if(!collector.isSamplesUpdated()){
                 continue;
             }

@@ -27,10 +27,10 @@ public class TestCollector implements MetricsCollector {
     public void collect(MetricsEvent event) {
         log.info("TestCollector collect");
         switch (event.getTag()) {
-            case "test":
+            case NUM_NAME:
                 testSampleMBean.setNum(testSampleMBean.getNum() + 1);
                 break;
-            case "test2":
+            case TIME_NAME:
                 testSampleMBean.setTime((long)event.getObject());
                 break;
             default:
