@@ -1,5 +1,6 @@
 package www.raven.ospp.metrics.reporter.internal;
 
+import io.prometheus.client.Collector;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
@@ -7,6 +8,8 @@ import io.prometheus.client.exporter.PushGateway;
 import io.prometheus.client.exporter.common.TextFormat;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +27,7 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
     private final static ScheduledExecutorService m_executorService;
     private final CollectorRegistry registry;
     private PushGateway pushGateway;
-
+    private final Map<String, Collector.Describable> map = new ConcurrentHashMap<>();
     static {
         m_executorService = Executors.newScheduledThreadPool(1);
     }
@@ -58,19 +61,19 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
 
     @Override
     public void registerCounterSample(CounterMetricsSample sample) {
-        Counter counter = Counter.build()
+        Counter counter = (Counter) map.computeIfAbsent(sample.getName(), k -> Counter.build()
             .name(sample.getName())
             .help("Counter for " + sample.getName())
-            .register(registry);
-        counter.inc(sample.getValue());
+            .register(registry));
+        counter.inc(sample.getValue()-counter.get());
     }
 
     @Override
     public void registerGaugeSample(GaugeMetricsSample sample) {
-        Gauge gauge = Gauge.build()
+        Gauge gauge = (Gauge) map.computeIfAbsent(sample.getName(), k -> Gauge.build()
             .name(sample.getName())
             .help("Gauge for " + sample.getName())
-            .register(registry);
+            .register(registry));
         gauge.set(sample.getApplyValue());
     }
 

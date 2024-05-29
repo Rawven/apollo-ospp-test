@@ -3,6 +3,7 @@ package www.raven.ospp.metrics.collector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.extern.slf4j.Slf4j;
 import www.raven.ospp.metrics.MBean.TestSample;
 import www.raven.ospp.metrics.MBean.TestSampleMBean;
@@ -16,8 +17,8 @@ import www.raven.ospp.metrics.model.MetricsSample;
 public class TestCollector implements MetricsCollector {
     public static final String NUM_NAME = "TestCounter";
     public static final String TIME_NAME = "TestGauge";
-    private TestSampleMBean testSampleMBean = new TestSample();
-    private boolean isSamplesUpdated = false;
+    private final TestSampleMBean testSampleMBean = new TestSample();
+    private final AtomicBoolean isSamplesUpdated = new AtomicBoolean(false);
 
     @Override
     public boolean isSupport(String tag) {
@@ -29,27 +30,32 @@ public class TestCollector implements MetricsCollector {
         log.info("TestCollector collect");
         switch (event.getTag()) {
             case NUM_NAME:
-                testSampleMBean.setNum(testSampleMBean.getNum() + 1);
+                testSampleMBean.incNum();
                 break;
             case TIME_NAME:
                 testSampleMBean.setTime((long)event.getObject());
                 break;
             default:
-                break;
+                return;
         }
-        isSamplesUpdated = true;
+        isSamplesUpdated.set(true);
     }
 
     @Override
     public boolean isSamplesUpdated() {
-        return isSamplesUpdated;
+        return isSamplesUpdated.getAndSet(false);
     }
 
     @Override
     public List<MetricsSample> export() {
+        log.info(testSampleMBean.toString());
         List<MetricsSample> samples = new ArrayList<>();
         samples.add(new CounterMetricsSample(NUM_NAME,testSampleMBean.getNum()));
-        samples.add(new GaugeMetricsSample<>(TIME_NAME, testSampleMBean.getTime(), Double::valueOf));
+        samples.add(new GaugeMetricsSample<>(TIME_NAME, testSampleMBean.getTime(), TestCollector::convertLongToDouble));
         return samples;
+    }
+
+    public static double convertLongToDouble(long value) {
+        return (double) value;
     }
 }

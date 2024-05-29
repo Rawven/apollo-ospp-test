@@ -10,10 +10,10 @@ public class GaugeMetricsSample<T> extends MetricsSample{
     private ToDoubleFunction<T> apply;
 
     public GaugeMetricsSample(String name, T value, ToDoubleFunction<T> apply) {
-        setName(name);
-        setValue(value);
-        setApply(apply);
-        setType(GAUGE);
+        this.name = name;
+        this.value = value;
+        this.apply = apply;
+        this.type = GAUGE;
     }
 
     public T getValue() {
