@@ -1,40 +1,40 @@
 package www.raven.ospp.metrics;
 
-public class MetricsEvent<T> {
+public class MetricsEvent {
     private String tag;
-    private T object;
+    private Object object;
 
 
-    private MetricsEvent(Builder<T> builder) {
+    private MetricsEvent(Builder builder) {
         this.tag = builder.tag;
         this.object = builder.object;
     }
 
 
-    public static <T> Builder<T> builder() {
-        return new Builder<>();
+    public static Builder builder() {
+        return new Builder();
     }
 
 
-    public static class Builder<T> {
+    public static class Builder {
         private String tag;
-        private T object;
+        private Object object;
 
         // 设置 tag 的方法
-        public Builder<T> withTag(String tag) {
+        public Builder withTag(String tag) {
             this.tag = tag;
             return this;
         }
 
         // 设置 object 的方法
-        public Builder<T> withObject(T object) {
+        public Builder withObject(Object object) {
             this.object = object;
             return this;
         }
 
         // 构建 MetricsEvent 对象
-        public MetricsEvent<T> build() {
-            return new MetricsEvent<>(this);
+        public MetricsEvent build() {
+            return new MetricsEvent(this);
         }
     }
 
@@ -42,7 +42,7 @@ public class MetricsEvent<T> {
         return tag;
     }
 
-    public T getObject() {
+    public Object getObject() {
         return object;
     }
 

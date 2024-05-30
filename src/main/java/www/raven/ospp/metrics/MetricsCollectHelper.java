@@ -15,16 +15,17 @@ public abstract class MetricsCollectHelper {
         reporterManager = SimpleInjector.getInstance(MetricsReporterManager.class);
     }
 
-    public static <T>void pushMetricsObject(T object, String key) {
-        log.info("pushMetricsObject: object={}, key={}", object, key);
+
+    public static void pushMetricsEvent(MetricsEvent<?> event) {
         for (MetricsCollector collector : collectorManager.getCollectors()) {
-            if (collector.isSupport(key)) {
-                collector.collect(MetricsEvent.builder().withObject(object).withTag(key).build());
+            if (collector.isSupport(event.getTag())) {
+                collector.collect(event);
                 return;
             }
         }
-        log.warn("No collector support key: {}", key);
+        log.warn("No collector support key: {}", event.getTag());
     }
+
 
     public static String getMetricsExportData() {
         return reporterManager.getMetricsReporter().response();

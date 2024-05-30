@@ -41,6 +41,7 @@ public class TestCollector implements MetricsCollector {
         isSamplesUpdated.set(true);
     }
 
+
     @Override
     public boolean isSamplesUpdated() {
         return isSamplesUpdated.getAndSet(false);
