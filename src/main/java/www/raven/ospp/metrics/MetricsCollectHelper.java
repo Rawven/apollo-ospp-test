@@ -16,7 +16,7 @@ public abstract class MetricsCollectHelper {
     }
 
 
-    public static void pushMetricsEvent(MetricsEvent<?> event) {
+    public static void pushMetricsEvent(MetricsEvent event) {
         for (MetricsCollector collector : collectorManager.getCollectors()) {
             if (collector.isSupport(event.getTag())) {
                 collector.collect(event);
