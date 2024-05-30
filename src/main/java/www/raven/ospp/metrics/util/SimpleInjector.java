@@ -7,8 +7,6 @@ import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import www.raven.ospp.metrics.collector.internal.DefaultMetricsCollectorManager;
 import www.raven.ospp.metrics.collector.internal.MetricsCollectorManager;
-import www.raven.ospp.metrics.reporter.MetricsReporterManager;
-import www.raven.ospp.metrics.reporter.internal.DefaultMetricsReporterManager;
 
 @Slf4j
 public class SimpleInjector {

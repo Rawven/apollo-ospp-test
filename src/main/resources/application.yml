@@ -1,2 +1,8 @@
 server:
   port: 8080
+apollo:
+  metrics:
+    enabled: true
+    protocol:
+      type: prometheus
+      url:
