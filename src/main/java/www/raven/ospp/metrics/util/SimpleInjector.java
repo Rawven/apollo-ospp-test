@@ -29,7 +29,6 @@ public class SimpleInjector {
         @Override
         protected void configure() {
              bind(MetricsCollectorManager.class).to(DefaultMetricsCollectorManager.class).in(Singleton.class);
-             bind(MetricsReporterManager.class).to(DefaultMetricsReporterManager.class).in(Singleton.class);
         }
     }
 }

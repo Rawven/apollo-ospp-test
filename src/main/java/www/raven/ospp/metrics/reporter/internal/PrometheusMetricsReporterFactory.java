@@ -6,11 +6,7 @@ import www.raven.ospp.metrics.reporter.MetricsReporterFactory;
 public class PrometheusMetricsReporterFactory implements MetricsReporterFactory {
     @Override
     public MetricsReporter createReporter(String url) {
-        return null;
+        return new PrometheusMetricReporter(url);
     }
 
-    @Override
-    public MetricsReporter createReporter() {
-        return null;
-    }
 }

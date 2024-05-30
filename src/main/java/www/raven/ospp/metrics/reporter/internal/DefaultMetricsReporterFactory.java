@@ -6,11 +6,7 @@ import www.raven.ospp.metrics.reporter.MetricsReporterFactory;
 public class DefaultMetricsReporterFactory implements MetricsReporterFactory {
     @Override
     public MetricsReporter createReporter(String url) {
-        return null;
+        return new NopMetricReporter(url);
     }
 
-    @Override
-    public MetricsReporter createReporter() {
-        return null;
-    }
 }

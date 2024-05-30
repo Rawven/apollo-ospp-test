@@ -42,10 +42,6 @@ public abstract class MetricsCollectHelper {
         } else {
             factory = new DefaultMetricsReporterFactory();
         }
-        if(url == null){
-            reporter = factory.createReporter();
-            return;
-        }
         reporter = factory.createReporter(url);
     }
 
