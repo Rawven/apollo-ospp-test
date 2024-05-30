@@ -21,7 +21,7 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMetricsReporter.class);
     protected String url;
-    private final static ScheduledExecutorService m_executorService;
+    private static ScheduledExecutorService m_executorService;
     private List<MetricsCollector> collectors;
     public AbstractMetricsReporter(String url) {
         //....
@@ -44,12 +44,10 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
 
     protected abstract void doInit();
 
-    static {
-        m_executorService = Executors.newScheduledThreadPool(1);
-    }
 
     private void initScheduleMetricsCollectSync() {
         log.info("Start to schedule metrics collect sync job");
+        m_executorService = Executors.newScheduledThreadPool(1);
         m_executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -77,10 +75,16 @@ public abstract class AbstractMetricsReporter implements MetricsReporter {
     }
 
     private void registerSample(MetricsSample sample) {
-        if (sample.getType() == GAUGE) {
-            registerGaugeSample((GaugeMetricsSample) sample);
-        } else if (sample.getType() == COUNTER) {
-            registerCounterSample((CounterMetricsSample) sample);
+        switch (sample.getType()) {
+            case GAUGE:
+                registerGaugeSample((GaugeMetricsSample) sample);
+                break;
+            case COUNTER:
+                registerCounterSample((CounterMetricsSample) sample);
+                break;
+            default:
+                log.warn("UnSupport sample type: {}", sample.getType());
+                break;
         }
     }
 

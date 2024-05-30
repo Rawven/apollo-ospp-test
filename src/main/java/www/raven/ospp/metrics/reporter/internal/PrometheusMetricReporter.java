@@ -24,13 +24,10 @@ import www.raven.ospp.metrics.reporter.MetricsReporter;
 public class PrometheusMetricReporter extends AbstractMetricsReporter implements MetricsReporter {
     private static final Logger logger = LoggerFactory.getLogger(
         PrometheusMetricReporter.class);
-    private final static ScheduledExecutorService m_executorService;
+    private ScheduledExecutorService p_executorService;
     private final CollectorRegistry registry;
     private PushGateway pushGateway;
     private final Map<String, Collector.Describable> map = new HashMap<>();
-    static {
-        m_executorService = Executors.newScheduledThreadPool(1);
-    }
 
     public PrometheusMetricReporter(String url) {
         super(url);
@@ -46,7 +43,8 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
     }
 
     protected void initSchdulePushJob() {
-        m_executorService.scheduleAtFixedRate(() -> {
+        p_executorService = Executors.newScheduledThreadPool(1);
+        p_executorService.scheduleAtFixedRate(() -> {
             try {
                 pushGateway.pushAdd(registry, "apollo");
             } catch (Throwable ex) {
