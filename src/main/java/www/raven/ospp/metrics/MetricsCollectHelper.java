@@ -25,7 +25,9 @@ public abstract class MetricsCollectHelper {
         log.warn("No collector support key: {}", event.getTag());
     }
 
-
+    /**
+     * 返回指标数据
+     */
     public static String getMetricsExportData() {
         return reporter.response();
     }
