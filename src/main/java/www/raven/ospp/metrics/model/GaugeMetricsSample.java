@@ -1,10 +1,11 @@
 package www.raven.ospp.metrics.model;
 
+import java.util.Map;
 import java.util.function.ToDoubleFunction;
 
 import static www.raven.ospp.metrics.util.MeterType.GAUGE;
 
-public class GaugeMetricsSample<T> extends MetricsSample{
+public class GaugeMetricsSample<T> extends MetricsSample {
     private T value;
 
     private ToDoubleFunction<T> apply;
@@ -14,6 +15,15 @@ public class GaugeMetricsSample<T> extends MetricsSample{
         this.value = value;
         this.apply = apply;
         this.type = GAUGE;
+    }
+
+    public GaugeMetricsSample(String name, T value, ToDoubleFunction<T> apply,
+        Map<String, String> tags) {
+        this.name = name;
+        this.value = value;
+        this.apply = apply;
+        this.type = GAUGE;
+        this.setTag(tags);
     }
 
     public T getValue() {

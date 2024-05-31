@@ -22,7 +22,7 @@ public class NopMetricReporter extends AbstractMetricsReporter implements Metric
     }
 
     @Override
-    public void registerGaugeSample(GaugeMetricsSample sample) {
+    public void registerGaugeSample(GaugeMetricsSample<?> sample) {
 
     }
 

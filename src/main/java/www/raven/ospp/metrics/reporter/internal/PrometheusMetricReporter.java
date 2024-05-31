@@ -24,10 +24,10 @@ import www.raven.ospp.metrics.reporter.MetricsReporter;
 public class PrometheusMetricReporter extends AbstractMetricsReporter implements MetricsReporter {
     private static final Logger logger = LoggerFactory.getLogger(
         PrometheusMetricReporter.class);
-    private ScheduledExecutorService p_executorService;
     private final CollectorRegistry registry;
-    private PushGateway pushGateway;
     private final Map<String, Collector.Describable> map = new HashMap<>();
+    private ScheduledExecutorService p_executorService;
+    private PushGateway pushGateway;
 
     public PrometheusMetricReporter(String url) {
         super(url);
@@ -36,7 +36,7 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
 
     @Override
     public void doInit() {
-        if(url != null && !url.isEmpty()) {
+        if (url != null && !url.isEmpty()) {
             pushGateway = new PushGateway(url);
             initSchdulePushJob();
         }
@@ -59,27 +59,33 @@ public class PrometheusMetricReporter extends AbstractMetricsReporter implements
 
     @Override
     public void registerCounterSample(CounterMetricsSample sample) {
+        String[][] tags = getTags(sample);
         Counter counter = (Counter) map.computeIfAbsent(sample.getName(), k -> Counter.build()
             .name(sample.getName())
             .help("Counter for " + sample.getName())
+            .labelNames(tags[0])
             .register(registry));
-        counter.inc(sample.getValue()-counter.get());
+        counter.labels(tags[1]).inc(sample.getValue() - counter.get());
+        logger.info("Register counter sample: {}", sample);
     }
 
     @Override
     public void registerGaugeSample(GaugeMetricsSample sample) {
+        String[][] tags = getTags(sample);
         Gauge gauge = (Gauge) map.computeIfAbsent(sample.getName(), k -> Gauge.build()
             .name(sample.getName())
             .help("Gauge for " + sample.getName())
+            .labelNames(tags[0])
             .register(registry));
-        gauge.set(sample.getApplyValue());
+        gauge.labels(tags[1]).set(sample.getApplyValue());
+        logger.info("Register gauge sample: {}", sample);
     }
 
     @Override
     public String response() {
         StringWriter writer = new StringWriter();
         try {
-            TextFormat.writeFormat(TextFormat.CONTENT_TYPE_OPENMETRICS_100,writer, registry.metricFamilySamples());
+            TextFormat.writeFormat(TextFormat.CONTENT_TYPE_OPENMETRICS_100, writer, registry.metricFamilySamples());
         } catch (IOException e) {
             logger.error("Write metrics to Prometheus format failed", e);
         }

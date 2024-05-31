@@ -5,12 +5,13 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import www.raven.ospp.metrics.collector.MetricsCollectorManager;
 import www.raven.ospp.metrics.collector.internal.DefaultMetricsCollectorManager;
-import www.raven.ospp.metrics.collector.internal.MetricsCollectorManager;
 
 @Slf4j
 public class SimpleInjector {
     private static final Injector injector;
+
     static {
         injector = Guice.createInjector(new DefaultModule());
     }
@@ -28,7 +29,7 @@ public class SimpleInjector {
     public static class DefaultModule extends AbstractModule {
         @Override
         protected void configure() {
-             bind(MetricsCollectorManager.class).to(DefaultMetricsCollectorManager.class).in(Singleton.class);
+            bind(MetricsCollectorManager.class).to(DefaultMetricsCollectorManager.class).in(Singleton.class);
         }
     }
 }

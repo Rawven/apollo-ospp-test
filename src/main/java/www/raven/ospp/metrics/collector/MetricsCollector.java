@@ -1,4 +1,4 @@
-package www.raven.ospp.metrics.collector.internal;
+package www.raven.ospp.metrics.collector;
 
 import java.util.List;
 import www.raven.ospp.metrics.MetricsEvent;
@@ -18,16 +18,12 @@ public interface MetricsCollector {
 
     /**
      * 是否更新了指标样本
-     *
      */
     boolean isSamplesUpdated();
 
     /**
      * 导出指标
-     *
      */
     List<MetricsSample> export();
-
-
 
 }

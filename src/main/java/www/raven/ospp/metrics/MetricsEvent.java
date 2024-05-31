@@ -1,34 +1,53 @@
 package www.raven.ospp.metrics;
 
 public class MetricsEvent {
+    private String name;
+    private Object data;
     private String tag;
-    private Object object;
-
 
     private MetricsEvent(Builder builder) {
+        this.name = builder.name;
+        this.data = builder.data;
         this.tag = builder.tag;
-        this.object = builder.object;
     }
-
 
     public static Builder builder() {
         return new Builder();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "MetricsEvent{" +
+            "name='" + name + '\'' +
+            ", object=" + data + "tag=" + tag + "\n" +
+            '}';
+    }
 
     public static class Builder {
+        private String name;
+        private Object data;
         private String tag;
-        private Object object;
 
-        // 设置 tag 的方法
-        public Builder withTag(String tag) {
-            this.tag = tag;
+        public Builder withName(String name) {
+            this.name = name;
             return this;
         }
 
-        // 设置 object 的方法
-        public Builder withObject(Object object) {
-            this.object = object;
+        public Builder withData(Object data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder withTag(String tag) {
+            this.tag = tag;
             return this;
         }
 
@@ -36,21 +55,5 @@ public class MetricsEvent {
         public MetricsEvent build() {
             return new MetricsEvent(this);
         }
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    @Override
-    public String toString() {
-        return "MetricsEvent{" +
-            "tag='" + tag + '\'' +
-            ", object=" + object +
-            '}';
     }
 }

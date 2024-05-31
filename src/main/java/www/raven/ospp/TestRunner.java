@@ -18,9 +18,10 @@ import www.raven.ospp.metrics.MetricsCollectHelper;
 public class TestRunner implements CommandLineRunner {
     @Autowired
     private SimpleConfig config;
+
     @Override
     public void run(String... args) {
         log.info("TestRunner start");
-        MetricsCollectHelper.simpleInit(config.getMetricsProtocolUrl(),config.getMetricsProtocolType());
+        MetricsCollectHelper.simpleInit(config.getMetricsProtocolUrl(), config.getMetricsProtocolType());
     }
 }

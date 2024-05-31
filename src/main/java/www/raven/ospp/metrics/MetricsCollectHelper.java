@@ -1,13 +1,14 @@
 package www.raven.ospp.metrics;
 
 import lombok.extern.slf4j.Slf4j;
-import www.raven.ospp.metrics.collector.internal.MetricsCollector;
-import www.raven.ospp.metrics.collector.internal.MetricsCollectorManager;
+import www.raven.ospp.metrics.collector.MetricsCollector;
+import www.raven.ospp.metrics.collector.MetricsCollectorManager;
 import www.raven.ospp.metrics.reporter.MetricsReporter;
 import www.raven.ospp.metrics.reporter.MetricsReporterFactory;
 import www.raven.ospp.metrics.reporter.internal.DefaultMetricsReporterFactory;
 import www.raven.ospp.metrics.reporter.internal.PrometheusMetricsReporterFactory;
 import www.raven.ospp.metrics.util.SimpleInjector;
+
 @Slf4j
 public abstract class MetricsCollectHelper {
     public static final String PROMETHEUS = "prometheus";
@@ -17,12 +18,12 @@ public abstract class MetricsCollectHelper {
 
     public static void pushMetricsEvent(MetricsEvent event) {
         for (MetricsCollector collector : collectorManager.getCollectors()) {
-            if (collector.isSupport(event.getTag())) {
+            if (collector.isSupport(event.getName())) {
                 collector.collect(event);
                 return;
             }
         }
-        log.warn("No collector support key: {}", event.getTag());
+        log.warn("No collector support key: {}", event.getName());
     }
 
     /**
@@ -39,14 +40,12 @@ public abstract class MetricsCollectHelper {
 
         //inject the reporter
         MetricsReporterFactory factory;
-        if(type.equals(PROMETHEUS)) {
+        if (type.equals(PROMETHEUS)) {
             factory = new PrometheusMetricsReporterFactory();
         } else {
             factory = new DefaultMetricsReporterFactory();
         }
         reporter = factory.createReporter(url);
     }
-
-
 
 }

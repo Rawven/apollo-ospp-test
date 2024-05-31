@@ -1,6 +1,6 @@
 package www.raven.ospp.metrics.reporter;
 
-public interface  MetricsReporterFactory {
+public interface MetricsReporterFactory {
     /**
      * create reporter
      *

@@ -15,7 +15,7 @@ public interface MetricsReporter {
     /**
      * 用于注册Gauge类型的指标
      */
-    void registerGaugeSample(GaugeMetricsSample sample);
+    void registerGaugeSample(GaugeMetricsSample<?> sample);
 
     /**
      * 收集的指标结果
