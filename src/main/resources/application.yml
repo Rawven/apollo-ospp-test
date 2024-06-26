@@ -1,8 +1,17 @@
 server:
   port: 8080
 apollo:
-  metrics:
+  monitor:
     enabled: true
-    protocol:
-      type: prometheus
-      url:
+    protocol: Prometheus
+  bootstrap:
+    enabled: true
+    eagerLoad:
+      enabled: true
+    namespaces: application,application1,application2,application3
+  config-service: http://81.68.181.139:8080
+app:
+  id: 0000097
+logging:
+   level:
+     com.ctrip.framework.apollo: debug
