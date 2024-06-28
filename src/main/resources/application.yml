@@ -8,10 +8,10 @@ apollo:
     enabled: true
     eagerLoad:
       enabled: true
-    namespaces: application,application1,application2,application3
+    namespaces: application,app1,app2,app3
   config-service: http://81.68.181.139:8080
 app:
-  id: 0000097
+  id: tikview
 logging:
    level:
      com.ctrip.framework.apollo: debug

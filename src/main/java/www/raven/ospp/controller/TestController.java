@@ -28,6 +28,6 @@ public class TestController {
 
     @GetMapping("/metrics")
     public String response() {
-        return ConfigService.getConifgMonitor().getDataWithCurrentMonitoringSystemFormat();
+        return ConfigService.getConfigMonitor().getDataWithCurrentMonitoringSystemFormat();
     }
 }
