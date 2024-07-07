@@ -1,14 +1,16 @@
 server:
   port: 8080
 apollo:
-  monitor:
-    enabled: true
-    protocol: Prometheus
+  client:
+    monitor:
+      enabled: true
+      form: prometheus
+      export-period: 3
   bootstrap:
     enabled: true
     eagerLoad:
       enabled: true
-    namespaces: application,app1,app2,app3
+    namespaces: application
   config-service: http://81.68.181.139:8080
 app:
   id: tikview

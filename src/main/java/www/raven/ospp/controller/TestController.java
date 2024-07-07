@@ -1,6 +1,7 @@
 package www.raven.ospp.controller;
 
 import com.ctrip.framework.apollo.ConfigService;
+import com.ctrip.framework.apollo.internals.ConfigMonitor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ public class TestController {
 
     @GetMapping("/metrics")
     public String response() {
-        return ConfigService.getConfigMonitor().getDataWithCurrentMonitoringSystemFormat();
-    }
+        ConfigMonitor configMonitor = ConfigService.getConfigMonitor();
+        return configMonitor.getDataWithCurrentMonitoringSystemFormat();
+  }
 }
