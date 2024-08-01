@@ -5,7 +5,7 @@ apollo:
       jmx:
         enabled: true
       external:
-        type: prometheus  
+        type: prometheus
   bootstrap:
     namespaces: application
 app:

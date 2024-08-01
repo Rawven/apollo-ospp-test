@@ -15,22 +15,24 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 @Slf4j
 public class HttpAspect {
-    @Pointcut("execution(public * www.raven.ospp.controller.*.*(..))")
-    public void webLog() {
-    }
-    
-    @Around("webLog()")
-    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
-        HttpServletRequest request = attributes.getRequest();
-        log.info("----HTTP 收到请求 url:{},调用者:{}", request.getRequestURL().toString(), request.getRemoteUser());
-        Object result = joinPoint.proceed();
-        long endTime = System.currentTimeMillis();
-        log.info("----HTTP 被调用方法 method:{} ", request.getMethod());
-        log.info("----HTTP 返回值:{} --总耗时:{}毫秒", result, (int) (endTime - startTime));
-        return result;
-    }
+
+  @Pointcut("execution(public * www.raven.ospp.controller.*.*(..))")
+  public void webLog() {
+  }
+
+  @Around("webLog()")
+  public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    long startTime = System.currentTimeMillis();
+    ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    assert attributes != null;
+    HttpServletRequest request = attributes.getRequest();
+    log.info("----HTTP 收到请求 url:{},调用者:{}", request.getRequestURL().toString(),
+        request.getRemoteUser());
+    Object result = joinPoint.proceed();
+    long endTime = System.currentTimeMillis();
+    log.info("----HTTP 被调用方法 method:{} ", request.getMethod());
+    log.info("----HTTP 返回值:{} --总耗时:{}毫秒", result, (int) (endTime - startTime));
+    return result;
+  }
 
 }

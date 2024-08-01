@@ -5,21 +5,24 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import www.raven.ospp.controller.TestController;
 
 @SpringBootApplication
 @Slf4j
 public class TestApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(TestApplication.class, args);
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-        executor.scheduleAtFixedRate(() -> {
+  public static void main(String[] args) {
+    SpringApplication.run(TestApplication.class, args);
+    ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+    executor.scheduleAtFixedRate(() -> {
+          TestController.test();
           ConfigService.getConfig("application");
-            log.info(ConfigService.getConfigMonitor().getDataWithCurrentMonitoringSystemFormat());
-            log.info(ConfigService.getConfigMonitor().getExceptionMonitorApi().getExceptionDetails().toString());
-            log.info("{}", ConfigService.getConfigMonitor().getNamespaceMonitorApi()
-                  .getNamespaceUsageCount("application"));
+          log.info(ConfigService.getConfigMonitor().getDataWithCurrentMonitoringSystemFormat());
+          log.info(ConfigService.getConfigMonitor().getExceptionMonitorApi().getExceptionDetails()
+              .toString());
+          log.info("{}", ConfigService.getConfigMonitor().getNamespaceMonitorApi()
+              .getNamespaceUsageCount("application"));
         }
-            , 5, 5, java.util.concurrent.TimeUnit.SECONDS);
-    }
+        , 5, 5, java.util.concurrent.TimeUnit.SECONDS);
+  }
 }
