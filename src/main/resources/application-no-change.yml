@@ -1,0 +1,8 @@
+apollo:
+  bootstrap:
+    namespaces: application
+app:
+  id: tikview
+logging:
+  level:
+    com.ctrip.framework.apollo: debug

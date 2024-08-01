@@ -1,7 +1,7 @@
 package www.raven.ospp.controller;
 
 import com.ctrip.framework.apollo.ConfigService;
-import com.ctrip.framework.apollo.internals.ConfigMonitor;
+import com.ctrip.framework.apollo.monitor.api.ConfigMonitor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

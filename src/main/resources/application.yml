@@ -1,19 +1,11 @@
 server:
   port: 8080
 apollo:
-  client:
-    monitor:
-      enabled: true
-      form: prometheus
-      export-period: 3
   bootstrap:
     enabled: true
     eagerLoad:
       enabled: true
-    namespaces: application
   config-service: http://81.68.181.139:8080
-app:
-  id: tikview
-logging:
-   level:
-     com.ctrip.framework.apollo: debug
+spring:
+  profiles:
+    active: jmx-prometheus-500-error-namespace

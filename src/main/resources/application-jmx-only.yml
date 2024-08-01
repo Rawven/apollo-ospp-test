@@ -1,0 +1,13 @@
+apollo:
+  client:
+    monitor:
+      enabled: true
+      jmx:
+        enabled: true
+  bootstrap:
+    namespaces: application
+app:
+  id: tikview
+logging:
+  level:
+    com.ctrip.framework.apollo: debug
