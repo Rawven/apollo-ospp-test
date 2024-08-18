@@ -17,6 +17,6 @@ public class TestController {
   @GetMapping("/metrics")
   public String metrics() {
     ConfigMonitor configMonitor = ConfigService.getConfigMonitor();
-    return configMonitor.getDataWithCurrentMonitoringSystemFormat();
+    return configMonitor.getExporterData();
   }
 }

@@ -13,8 +13,8 @@ public class PocTest {
   public void test() {
     Config config = ConfigService.getConfig("1");
     log.info(config.getPropertyNames().toString());
-    List<String> exceptionNum = ConfigService.getConfigMonitor().getExceptionMonitorApi()
-        .getExceptionDetails();
+    List<Exception> exceptionNum = ConfigService.getConfigMonitor().getExceptionMonitorApi()
+        .getApolloConfigExceptionList();
     log.info("{}", exceptionNum.toString());
   }
 }

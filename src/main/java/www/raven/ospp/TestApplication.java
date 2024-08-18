@@ -11,17 +11,17 @@ import www.raven.ospp.controller.TestController;
 @Slf4j
 public class TestApplication {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     SpringApplication.run(TestApplication.class, args);
     ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
     executor.scheduleAtFixedRate(() -> {
           TestController.test();
           ConfigService.getConfig("application");
-          log.info(ConfigService.getConfigMonitor().getDataWithCurrentMonitoringSystemFormat());
-          log.info(ConfigService.getConfigMonitor().getExceptionMonitorApi().getExceptionDetails()
+          log.info(ConfigService.getConfigMonitor().getExporterData());
+          log.info(ConfigService.getConfigMonitor().getExceptionMonitorApi().getApolloConfigExceptionList()
               .toString());
           log.info("{}", ConfigService.getConfigMonitor().getNamespaceMonitorApi()
-              .getNamespaceUsageCount("application"));
+              .getNamespaceMetrics().get("application").getUsageCount());
         }
         , 5, 5, java.util.concurrent.TimeUnit.SECONDS);
   }
