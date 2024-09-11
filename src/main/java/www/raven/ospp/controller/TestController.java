@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseBody
 public class TestController {
 
-  public static void test() {
-    ConfigService.getConfig("1");
-  }
-
   @GetMapping("/metrics")
   public String metrics() {
     ConfigMonitor configMonitor = ConfigService.getConfigMonitor();

@@ -2,8 +2,8 @@ apollo:
   client:
     monitor:
       enabled: true
-      jmx:
-        enabled: true
+      external:
+        type: metheus
   bootstrap:
     namespaces: application,application1
 app:

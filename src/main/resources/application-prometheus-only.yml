@@ -5,7 +5,7 @@ apollo:
       external:
         type: prometheus
   bootstrap:
-    namespaces: application
+    namespaces: application,application1
 app:
   id: tikview
 logging:
