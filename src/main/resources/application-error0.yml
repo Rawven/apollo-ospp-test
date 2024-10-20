@@ -1,0 +1,12 @@
+apollo:
+  client:
+    monitor:
+      external:
+        type: metheus
+  bootstrap:
+    namespaces: application,application1
+app:
+  id: tikview
+logging:
+  level:
+    com.ctrip.framework.apollo: debug
