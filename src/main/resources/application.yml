@@ -8,4 +8,4 @@ apollo:
   config-service: http://81.68.181.139:8080
 spring:
   profiles:
-    active: error2
+    active: jmx-prometheus
