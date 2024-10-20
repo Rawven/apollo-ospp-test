@@ -4,7 +4,7 @@
 提供以下测试场景
 
 - 不使用monitor功能 （no-change）
-- 错误配置monitor (error-internal-type)
+- 错误配置monitor (error0,error1,error2)
 - 启用jmx  (jmx-only)
 - 启用prometheus   (prometheus-only)
 - 同时启用jmx和prometheus   (jmx-prometheus)
